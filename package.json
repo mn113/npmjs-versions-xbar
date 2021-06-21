@@ -1,0 +1,23 @@
+{
+  "name": "npmjs-versions-xbar",
+  "version": "0.0.1",
+  "description": "Bitbar plugin to display versions of NPMJS packages",
+  "main": "npmjs-versions.2h",
+  "scripts": {
+    "start": "node npmjs-versions.2h",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mn113/npmjs-versions-xbar.git"
+  },
+  "author": "M. Nicholson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mn113/npmjs-versions-xbar/issues"
+  },
+  "homepage": "https://github.com/mn113/npmjs-versions-xbar#readme",
+  "dependencies": {
+    "date-fns": "^2.22.1"
+  }
+}
