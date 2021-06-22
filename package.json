@@ -5,7 +5,8 @@
   "main": "npmjs-versions.2h",
   "scripts": {
     "start": "node npmjs-versions.2h",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava",
+    "test:cov": "nyc ava"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "homepage": "https://github.com/mn113/npmjs-versions-xbar#readme",
   "dependencies": {
     "date-fns": "^2.22.1"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "nyc": "^15.1.0"
   }
 }

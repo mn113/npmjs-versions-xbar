@@ -4,3 +4,4 @@ config.json
 token.json
 *.log
 .vscode
+.nyc_output

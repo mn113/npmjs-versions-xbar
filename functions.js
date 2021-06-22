@@ -58,7 +58,7 @@ function relativeTime(timestamp) {
 
 /**
  * Flatten a JSON structure to allow multiple orgs & repos to be processed as a flat array
- * @param {Object} json - typically direct from config file
+ * @param {Object[]} json - typically direct from config file
  * @returns {PackageData[]} - individal package datas
  */
 function flatten(json) {
@@ -102,7 +102,6 @@ function fetchAll(config = {}) {
             return await npmView(scopedPackageName, ['dist-tags.latest', 'time.modified', 'homepage', '--json'])
                 .then(result => {
                     result = JSON.parse(result);
-                    // console.log('r', result);
                     if (result.error) {
                         return {
                             name: scopedPackageName,
@@ -126,5 +125,10 @@ function fetchAll(config = {}) {
 };
 
 module.exports = {
+    execCmd,
+    npmView,
+    relativeTime,
+    flatten,
+    getPackageName,
     fetchAll
 };
