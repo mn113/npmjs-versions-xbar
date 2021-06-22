@@ -38,11 +38,12 @@ Properties:
   "enabled": [
     {
       "org": "@oat-sa-private", // mandatory; set value to "org": "" for unscoped packages
-      "private": true, // optional; only used for display icon
       "packages": [
-        "tao-test-runner-qtinui" // mandatory; list of package names
+          "tao-test-runner-qtinui" // mandatory; list of package names
       ],
-      "github": "oat-sa/tao-deliver-fe" // optional; alternative url, in case package doesn't contain one (monorepos etc.)
+      "private": true, // optional; only used for default display icon
+      "icon": ":heart:", // optional: custom icon for packages in this group
+      "url": "https://github.com/oat-sa/live-design-system" // optional; alternative url, in case package doesn't contain a homepage value (monorepos etc.)
     }
   ],
   "disabled": [] // holding area, for your convenience, not used anywhere
