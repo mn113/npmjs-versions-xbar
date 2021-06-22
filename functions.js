@@ -2,16 +2,22 @@
 
 const path = require('path');
 
-const parseDate = require('date-fns/parseJSON');
-const timeAgo = require('date-fns/formatDistanceToNow');
-
-const { execSync } = require("child_process");
-
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
+const parseDate = require('date-fns/parseJSON');
+const timeAgo = require('date-fns/formatDistanceToNow');
+
 // npm assumed to be globally installed at default OSX location - can be changed if needed
 const npmPath = path.resolve('/usr/local/bin');
+
+/**
+ * @typedef {Object} PackageData
+ * @property {String} name
+ * @property {String} org
+ * @property {Boolean} private
+ * @property {String} github
+ */
 
 /**
  * Execute a generic shell command
@@ -23,9 +29,11 @@ async function execCmd(cmd) {
     const env = Object.assign({}, process.env);
     env.PATH = `${npmPath}:${env.PATH}`;
 
-    const { stdout, stderr } = await exec(cmd, { env });
-
-    return stdout || stderr;
+    // Since XBar wants text in all cases, return stdout regardless of pass or fail
+    // But error must be caught to prevent early exit
+    return await exec(cmd, { env })
+        .then(result => result.stdout)
+        .catch(error => error.stdout);
 }
 
 /**
@@ -39,7 +47,7 @@ async function npmView(scopedPackage, params) {
 }
 
 /**
- * Formats relative past time, e.g. 'about 3 hours ago'
+ * Format relative past time, e.g. 'about 3 hours ago'
  * @param {String} timestamp - ISO format
  * @returns {String}
  */
@@ -50,17 +58,33 @@ function relativeTime(timestamp) {
 /**
  * Flatten a JSON structure to allow multiple orgs & repos to be processed as a flat array
  * @param {Object} json - typically direct from config file
- * @returns {String[]} - scoped package names
- * TODO: return object to preserve github and private properties
+ * @returns {PackageData[]} - individal package datas
  */
 function flatten(json) {
     return [].concat(...json.map(obj => {
-        return obj.packages.map(packageName => `${obj.org}/${packageName}`);
+        return obj.packages.map(name => ({
+            org: obj.org,
+            private: obj.private,
+            github: obj.github,
+            name
+        }));
     }));
 }
 
 /**
- * Start fetching repos data!
+ * Get the package name from the data
+ * @param {PackageData} [packageData={}]
+ * @returns {String} name of scoped or unscoped package
+ */
+function getPackageName(packageData = {}) {
+    if (packageData.org && packageData.org.length) {
+        return `${packageData.org}/${packageData.name}`;
+    }
+    return packageData.name;
+}
+
+/**
+ * Start fetching data from registry
  * @param {Object} config - JSON, must match config structure
  * @returns {Promise<Object[]>}
  */
@@ -71,16 +95,26 @@ function fetchAll(config = {}) {
         ]);
     }
     return Promise.all(
-        flatten(config.enabled).map(async scopedPackage => {
-            return await npmView(scopedPackage, ['dist-tags.latest', 'time.modified', 'homepage', '--json'])
+        flatten(config.enabled).map(async packageData => {
+            const scopedPackageName = getPackageName(packageData);
+            return await npmView(scopedPackageName, ['dist-tags.latest', 'time.modified', 'homepage', '--json'])
                 .then(result => {
                     result = JSON.parse(result);
+                    // console.log('r', result);
+                    if (result.error) {
+                        return {
+                            name: scopedPackageName,
+                            error: result.error
+                        };
+                    }
                     return {
-                        package: scopedPackage,
+                        name: scopedPackageName,
+                        private: packageData.private,
+                        github: packageData.github,
                         data: {
                             latest: result['dist-tags.latest'],
                             modified: relativeTime(result['time.modified']),
-                            ghlink: result['homepage']
+                            homepage: result['homepage']
                         }
                     }
                 });

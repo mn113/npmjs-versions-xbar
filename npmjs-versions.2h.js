@@ -18,15 +18,21 @@ const pkg = require('./package.json');
 const config = require('./config.json');
 const { fetchAll } = require('./functions.js');
 
-// Begin plugin output:
+// github icon codes
+const MAIN_ICON = ':notebook:';
+const ERROR_ICON = ':heavy_exclamation_mark:';
+const PACKAGE_ICON = ':ballot_box_with_check:';
+const PRIVATE_PACKAGE_ICON = ':lock:';
+
+// Start menubar output (must come first):
 // Set icon:
-console.log(':notebook:')
+console.log(MAIN_ICON)
 console.log("---");
 
 // Preflight:
 // Check if config.json already present, if not, duplicate config.json.dist:
 function preflight() {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         try {
             var configJsonPath = path.join(__dirname, 'config.json');
             fs.access(configJsonPath, fs.constants.F_OK, (err1) => {
@@ -42,26 +48,41 @@ function preflight() {
                 }
                 else resolve('ok');
             });
-        } catch(err) {
+        } catch (err) {
             reject(err.message);
         }
     });
 }
 
-// Principal output:
-function output([displayRepos]) {
-    console.log(`${displayRepos.length} npm packages defined:`);
+/**
+ * Produce menubar output via console.log
+ * @param {Object[]} packages
+ */
+function output(packages) {
+    // Begin list:
+    console.log(`${packages.length} npm packages defined:`);
     console.log("---");
-    displayRepos.forEach(repo => {
-        if (repo && repo.package && repo.data) {
-            let repoLine = `- ${repo.package} : ${repo.data.latest} : ${repo.data.modified}`;
-            if (repo.data.ghlink) {
-                repoLine += `|href=${repo.data.ghlink}`;
+    packages.forEach(package => {
+        if (package && package.name) {
+            let icon = '';
+            let packageLine = '';
+
+            // Begin line:
+            if (package.data) {
+                icon = package.private ? PRIVATE_PACKAGE_ICON : PACKAGE_ICON;
+                packageLine += `${icon} ${package.name} : ${package.data.latest} : ${package.data.modified}`
+                // Add link:
+                if (package.data.homepage) {
+                    packageLine += `|href=${package.data.homepage}`;
+                } else if (package.github) {
+                    packageLine += `|href=https://github.com/${package.github}`;
+                }
             }
-            console.log(repoLine);
-        }
-        else if (repo instanceof Error) {
-            console.log(`Error: ${repo.message}|color=crimson`);
+            else if (package.error) {
+                icon = ERROR_ICON;
+                packageLine += `${icon} ${package.error.code} : ${package.error.summary.split(/\n/)[0].slice(0,40)}|color=crimson`;
+            }
+            console.log(packageLine);
         }
         console.log("---");
     });
@@ -70,18 +91,14 @@ function output([displayRepos]) {
     console.log("--Reload plugin | refresh=true terminal=false");
     console.log("--Setup instructions");
     console.log("----1. npm needs to be installed globally");
-    console.log("----2. To fetch private packages: npm login or set npm token in ~/.npmrc");
-    console.log("----3. Set your packages in config.json");
+    console.log("----2. To fetch private packages: set npm token in ~/.npmrc");
+    console.log("----3. Configure your packages in config.json");
     console.log(`--Plugin v${pkg.version}`);
     console.log(`--Node ${process.version}`);
 }
 
 // Main:
 preflight()
-    .then(() => {
-        return Promise.all([
-            fetchAll(config)
-        ]);
-    })
-    .then(output)
+    .then(() => fetchAll(config))
+    .then(results => output(results))
     .catch(console.log);
