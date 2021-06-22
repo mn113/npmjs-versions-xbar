@@ -69,7 +69,7 @@ function output(packages) {
 
             // Begin line:
             if (package.data) {
-                icon = package.private ? PRIVATE_PACKAGE_ICON : PACKAGE_ICON;
+                icon = package.icon || (package.private ? PRIVATE_PACKAGE_ICON : PACKAGE_ICON);
                 packageLine += `${icon} ${package.name} : ${package.data.latest} : ${package.data.modified}`
                 // Add link:
                 if (package.data.homepage) {

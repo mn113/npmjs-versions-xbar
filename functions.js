@@ -16,6 +16,7 @@ const npmPath = path.resolve('/usr/local/bin');
  * @property {String} name
  * @property {String} org
  * @property {Boolean} private
+ * @property {String} icon
  * @property {String} github
  */
 
@@ -66,6 +67,7 @@ function flatten(json) {
             org: obj.org,
             private: obj.private,
             github: obj.github,
+            icon: obj.icon,
             name
         }));
     }));
@@ -110,6 +112,7 @@ function fetchAll(config = {}) {
                     return {
                         name: scopedPackageName,
                         private: packageData.private,
+                        icon: packageData.icon,
                         github: packageData.github,
                         data: {
                             latest: result['dist-tags.latest'],
