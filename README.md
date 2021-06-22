@@ -2,11 +2,13 @@
 
 Puts NPM package stats & links in your Mac menu bar, using the `npm view` command.
 
-Configure an unlimited number of NPM packages to display. See at a glance the latest released version of any package (public and private), and its modfication time. Click to launch the package's Github homepage.
+Configure an unlimited number of NPM packages to display. See at a glance the latest released version of any package (public and private), and its modfication time. Click to launch the package's homepage.
+
+![NPM versions plugin](screenshot1.png)
 
 ## Prerequisites
 
-This will run on systems with Mac OSX, [XBar](https://github.com/matryer/xbar) (or BitBar), [Node.js](https://nodejs.org/) >= 12 & [npm](https://www.npmjs.com/package/npm) >= 6 installed.
+This will run on systems with Mac OSX, [XBar](https://github.com/matryer/xbar) (or BitBar), [Node.js](https://nodejs.org/) >= 8 & [npm](https://www.npmjs.com/package/npm) >= 6 installed.
 
 ## Install
 
@@ -55,17 +57,21 @@ Properties:
 
 As with all XBar plugins, the refresh time is encoded into the filename. The default `npmjs-versions.2h.js` will query NPM every 2 hours. Change `2h` to something like `15m`, `30m`, `1h` if you want more frequent updates.
 
+## Customise
+
+To customise your local version of the plugin, an easy place to start is the icons. To do this you can change the `*_ICON` constants defined near the top of the main script, `npmjs-versions.2h.js`.
+
 ## Limitations
 
 XBar plugins are pretty good at fetching and showing information, but making them do something interactive is a real hassle. So don't expect to find many cool features in the future.
 
 ### Private packages
 
-Some packages are private; to query these you need to be authenticated with NPM. You should obtain a [NPM access token](https://docs.npmjs.com/creating-and-viewing-access-tokens) with the correct permissions and install it in your `~/.npmrc` file. If you can run `npm view {scope}/{package}` on your command line and get a result, it should work in this plugin too.
+Some packages are private; to query these you need to be authenticated with NPM. You should obtain a [NPM access token](https://docs.npmjs.com/creating-and-viewing-access-tokens) with the correct permissions and install it in your `~/.npmrc` file. If you can run `npm view {scope}/{package}` on your command line and get a result, it should work in this plugin too. Tokens defined in ENV vars or in a project-local `.npmrc` file are not supported yet.
 
 ### Alternative package registries
 
-Not tested, though it may work if your `.npmrc` is configured to use another registry by default.
+Not tested, though it may work if your `~/.npmrc` is configured to use another registry by default.
 
 ## Contribute
 
