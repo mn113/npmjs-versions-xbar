@@ -35,7 +35,7 @@ Configure your list of orgs and packages in `config.json`, according to the temp
 
 Properties:
 
-```json
+```js
 {
   "enabled": [
     // one block (of multiple):
