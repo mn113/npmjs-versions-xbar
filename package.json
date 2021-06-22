@@ -1,7 +1,7 @@
 {
   "name": "npmjs-versions-xbar",
-  "version": "0.0.1",
-  "description": "Bitbar plugin to display latest versions of NPM registry packages",
+  "version": "0.1.0",
+  "description": "Xbar plugin to display latest versions of NPM registry packages",
   "main": "npmjs-versions.2h",
   "scripts": {
     "start": "node npmjs-versions.2h",
