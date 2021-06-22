@@ -17,7 +17,7 @@ const npmPath = path.resolve('/usr/local/bin');
  * @property {String} org
  * @property {Boolean} private
  * @property {String} icon
- * @property {String} github
+ * @property {String} url
  */
 
 /**
@@ -66,7 +66,7 @@ function flatten(json) {
         return obj.packages.map(name => ({
             org: obj.org,
             private: obj.private,
-            github: obj.github,
+            url: obj.url,
             icon: obj.icon,
             name
         }));
@@ -113,7 +113,7 @@ function fetchAll(config = {}) {
                         name: scopedPackageName,
                         private: packageData.private,
                         icon: packageData.icon,
-                        github: packageData.github,
+                        url: packageData.url,
                         data: {
                             latest: result['dist-tags.latest'],
                             modified: relativeTime(result['time.modified']),

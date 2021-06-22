@@ -74,8 +74,8 @@ function output(packages) {
                 // Add link:
                 if (package.data.homepage) {
                     packageLine += `|href=${package.data.homepage}`;
-                } else if (package.github) {
-                    packageLine += `|href=https://github.com/${package.github}`;
+                } else if (package.url) {
+                    packageLine += `|href=${package.url}`;
                 }
             }
             else if (package.error) {
