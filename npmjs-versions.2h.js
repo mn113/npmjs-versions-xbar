@@ -6,8 +6,8 @@
  * <xbar.author>M. Nicholson</xbar.author>
  * <xbar.author.github>mn113</xbar.author.github>
  * <xbar.image>https://github.com/mn113/npmjs-versions-xbar/blob/master/npmjs-versions-xbar1.png</xbar.image>
- * <xbar.desc>List NPMJS packages latest versions</xbar.desc>
- * <xbar.dependencies>node,octonode,dotenv</xbar.dependencies>
+ * <xbar.desc>List NPM packages latest versions</xbar.desc>
+ * <xbar.dependencies>node npm date-fns</xbar.dependencies>
  * <xbar.abouturl>https://github.com/mn113/npmjs-versions-xbar</xbar.abouturl>
  */
 

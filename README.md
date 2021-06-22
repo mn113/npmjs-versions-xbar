@@ -36,13 +36,14 @@ Properties:
 ```json
 {
   "enabled": [
+    // one block (of multiple):
     {
       "org": "@oat-sa-private", // mandatory; set value to "org": "" for unscoped packages
       "packages": [
           "tao-test-runner-qtinui" // mandatory; list of package names
       ],
       "private": true, // optional; only used for default display icon
-      "icon": ":heart:", // optional: custom icon for packages in this group
+      "icon": ":heart:", // optional: custom icon for all packages in this group
       "url": "https://github.com/oat-sa/live-design-system" // optional; alternative url, in case package doesn't contain a homepage value (monorepos etc.)
     }
   ],

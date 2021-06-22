@@ -3,44 +3,31 @@
     {
       "org": "",
       "packages": [
+        "jest",
+        "mocha"
+      ]
+    },
+    {
+      "org": "",
+      "packages": [
         "mathlive"
       ],
-      "private": false,
       "icon": ":heart:"
     },
     {
-      "org": "@oat-sa-private",
+      "org": "@storybook",
       "packages": [
-        "tao-test-runner-qtinui",
-        "tao-item-runner-qtinui"
+        "api"
       ],
-      "private": true,
-      "url": "https://github.com/oat-sa/tao-deliver-fe"
+      "private": false
     },
     {
-      "org": "@oat-sa-private",
+      "org": "@storybook",
       "packages": [
-        "ui-components",
-        "ui-elements",
-        "ui-identity",
-        "ui-core"
+        "addons"
       ],
       "private": true,
-      "url": "https://github.com/oat-sa/live-design-system"
-    },
-    {
-      "org": "@oat-sa",
-      "private": false,
-      "packages": [
-        "e2e-runner",
-        "tao-core-sdk",
-        "tao-core-ui",
-        "tao-core-libs",
-        "tao-test-runner-qti",
-        "tao-item-runner-qti",
-        "tao-extension-release",
-        "tao-release-notes"
-      ]
+      "url": "https://storybook.js.org/"
     }
   ],
   "disabled": [
