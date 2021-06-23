@@ -23,15 +23,17 @@ cd /path/to/your/xbar/plugins/folder
 git clone https://github.com/mn113/npmjs-versions-xbar.git
 cd npmjs-versions-xbar
 npm install
-ln -s npmjs-versions.2h.js ../npmjs-versions.2h.js
+ln -s src/npmjs-versions.2h.js ../npmjs-versions.2h.js
 chmod +x ../npmjs-versions.2h.js
 ```
+
+After that, the plugin icon should appear in the menubar when XBar is opened or refreshed.
 
 ## Configure
 
 ### Orgs & repos
 
-Configure your list of orgs and packages in `config.json`, according to the template. Within `"enabled"` you can have as many blocks as you need, for different orgs / scopes / custom properties.
+Configure your list of orgs and packages in `config.json`, according to the template. Within `"enabled"` you can have as many blocks as you need, for different packages / orgs / scopes / custom properties.
 
 Properties:
 
@@ -79,4 +81,4 @@ Contributions & suggestions welcome by [Issue](issues) or [PR](pulls)!
 
 ## Licence
 
-Distributed under the [MIT licence](./LICENSE). Go nuts.
+Distributed under the [MIT licence](./LICENSE).
