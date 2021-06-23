@@ -2,11 +2,15 @@
   "name": "npmjs-versions-xbar",
   "version": "0.1.0",
   "description": "Xbar plugin to display latest versions of NPM registry packages",
-  "main": "npmjs-versions.2h",
+  "main": "src/npmjs-versions.2h",
   "scripts": {
-    "start": "node npmjs-versions.2h",
+    "start": "node src/npmjs-versions.2h.js",
     "test": "ava",
-    "test:cov": "nyc ava"
+    "test:cov": "c8 ava",
+    "lint": "eslint src test"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,7 @@
   },
   "devDependencies": {
     "ava": "^3.15.0",
-    "nyc": "^15.1.0"
+    "c8": "^7.7.3",
+    "eslint": "^7.29.0"
   }
 }
