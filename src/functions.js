@@ -1,4 +1,7 @@
-/* eslint-env: node, es6 */
+/**
+ * @file functions.js
+ * Utility functions to support the plugin
+ */
 
 const path = require('path');
 
@@ -116,13 +119,13 @@ function fetchAll(config = {}) {
                         data: {
                             latest: result['dist-tags.latest'],
                             modified: relativeTime(result['time.modified']),
-                            homepage: result['homepage']
+                            homepage: result.homepage
                         }
-                    }
+                    };
                 });
         })
     );
-};
+}
 
 module.exports = {
     execCmd,
