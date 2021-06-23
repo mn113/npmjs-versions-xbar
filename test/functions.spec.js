@@ -1,3 +1,8 @@
+/**
+ * @file functions.spec.js
+ * Unit/Integration tests for src/functions.js
+ */
+
 const {
     execCmd,
     npmView,
@@ -5,7 +10,7 @@ const {
     flatten,
     getPackageName,
     fetchAll
-} = require('../functions.js');
+} = require('../src/functions.js');
 
 const test = require('ava');
 
@@ -106,7 +111,7 @@ test('getPackageName - scoped', t => {
     const data = {
         org: '@myorg',
         name: 'foo'
-    }
+    };
     t.is(getPackageName(data), '@myorg/foo');
 });
 
@@ -114,14 +119,14 @@ test('getPackageName - unscoped 1', t => {
     const data = {
         org: '',
         name: 'foo'
-    }
+    };
     t.is(getPackageName(data), 'foo');
 });
 
 test('getPackageName - unscoped 2', t => {
     const data = {
         name: 'foo'
-    }
+    };
     t.is(getPackageName(data), 'foo');
 });
 
